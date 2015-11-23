@@ -14,8 +14,7 @@ roman.controller("romanController", ["convertService", function(convertService) 
 roman.factory("convertService", [function() {
   var service = this;
   service.toRoman = function(input) {
-
-    return "I";
+    return input > 1 ? "II" : "I";
   };
   return service;
 }]);
