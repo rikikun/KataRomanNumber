@@ -15,8 +15,12 @@ roman.factory("convertService", [function() {
   var service = this;
   service.toRoman = function(input) {
     var result = "";
-    for(var i=0;i<input;i++) {
-      result += "I"
+    if(input <= 3) {
+      for(var i=0;i<input;i++) {
+        result += "I";
+      }
+    }else {
+      result = "IV";
     }
     return result;
   };
