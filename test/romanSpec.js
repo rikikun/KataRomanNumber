@@ -1,5 +1,19 @@
 describe("Roman test", function() {
-  it("First Test ", function() {
-    expect(true).toEqual(true);
+
+  var convertService;
+
+  beforeEach(function() {
+    module("romanApp");
+    inject(function($injector) {
+      convertService = $injector.get("convertService");
+    });
+  });
+
+  it("shoud define to roman function ", function() {
+    expect(convertService.toRoman).toBeDefined();
+  });
+
+  it("should receive 1 and return I", function(){
+    expect(convertService.toRoman(1)).toEqual("I");
   });
 });
