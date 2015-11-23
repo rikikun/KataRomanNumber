@@ -32,5 +32,8 @@
     "karma-jasmine": "^0.3.6",
     "vinyl-source-stream": "^1.1.0",
     "y": "^0.3.2"
+  },
+  "scripts": {
+    "test": "karma start --single-run"
   }
 }
