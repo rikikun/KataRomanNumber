@@ -9,10 +9,6 @@ describe("Roman test", function() {
     });
   });
 
-  it("shoud define to roman function ", function() {
-    expect(convertService.toRoman).toBeDefined();
-  });
-
   it("should receive 1 and return I", function(){
     expect(convertService.toRoman(1)).toEqual("I");
   });
@@ -27,5 +23,9 @@ describe("Roman test", function() {
 
   it("should receive 4 and return IV", function() {
     expect(convertService.toRoman(4)).toEqual("IV");
+  });
+
+  it("should receive 5 and return V", function() {
+    expect(convertService.toRoman(5)).toEqual("V");
   });
 });
