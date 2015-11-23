@@ -5,5 +5,7 @@
 	</head>
 	<body ng-controller="romanController as ctrl">
 	{{ctrl.test}}
+	<input ng-model="ctrl.input" ng-change="ctrl.handleChange()"/>
+	input is {{ctrl.result}}
 	</body>
 </html>
