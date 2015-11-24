@@ -25,7 +25,7 @@ roman.factory("convertService", [function() {
         result += "I" + value[index];
         break;
       }else if(input >= maps[index]) {
-        result = value[index];
+        result += value[index];
         input = input - maps[index];
       }else if(input <= 3){
         result += value[value.length - 1];
