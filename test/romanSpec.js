@@ -32,4 +32,8 @@ describe("Roman test", function() {
   it("should receive 6 and return VI", function() {
     expect(convertService.toRoman(6)).toEqual("VI");
   });
+
+  it("should receive 9 and return IX", function() {
+    expect(convertService.toRoman(9)).toEqual("IX");
+  });
 });
