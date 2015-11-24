@@ -45,5 +45,7 @@ describe("Roman test", function() {
     expect(convertService.toRoman(40)).toEqual("XL");
   });
 
-  
+  it("should receive 50 and return L", function() {
+    expect(convertService.toRoman(50)).toEqual("L");
+  });
 });
