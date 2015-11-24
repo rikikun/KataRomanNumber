@@ -15,8 +15,8 @@ roman.factory("convertService", [function() {
   var service = this;
   service.toRoman = function(input) {
     input = Number(input);
-    var maps = [10, 5, 1];
-    var value = ["X", "V", "I"];
+    var maps = [40, 10, 5, 1];
+    var value = ["XL", "X", "V", "I"];
     var result = "";
     var index = 0;
     while(input > 0) {
