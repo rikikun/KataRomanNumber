@@ -89,10 +89,4 @@ describe("Roman test", function() {
     expect(convertService.toRoman(1800)).toEqual("MDCCC");
   });
 
-
-
-
-
-
-
 });
