@@ -81,6 +81,16 @@ describe("Roman test", function() {
     expect(convertService.toRoman(707)).toEqual("DCCVII");
   });
 
+  it("should receive 900 and return CM", function() {
+    expect(convertService.toRoman(900)).toEqual("CM");
+  });
+
+  it("should receive 1800 and return MDCCC", function() {
+    expect(convertService.toRoman(1800)).toEqual("MDCCC");
+  });
+
+
+
 
 
 
