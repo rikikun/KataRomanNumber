@@ -57,5 +57,32 @@ describe("Roman test", function() {
     expect(convertService.toRoman(90)).toEqual("XC");
   });
 
+  it("should receive 99 and return LX", function() {
+    expect(convertService.toRoman(99)).toEqual("XCIX");
+  });
+
+  it("should receive 100 and return LX", function() {
+    expect(convertService.toRoman(100)).toEqual("C");
+  });
+
+  it("should receive 501 and return DI", function() {
+    expect(convertService.toRoman(501)).toEqual("DI");
+  });
+
+  it("should receive 550 and return DI", function() {
+    expect(convertService.toRoman(550)).toEqual("DL");
+  });
+
+  it("should receive 530 and return DXXX", function() {
+    expect(convertService.toRoman(530)).toEqual("DXXX");
+  });
+
+  it("should receive 707 and return DCCVII", function() {
+    expect(convertService.toRoman(707)).toEqual("DCCVII");
+  });
+
+
+
+
 
 });
