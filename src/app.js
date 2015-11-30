@@ -14,28 +14,25 @@ roman.controller("romanController", ["convertService", function(convertService) 
 roman.factory("convertService", [function() {
   var service = this;
   service.toRoman = function(input) {
+
+
     input = Number(input);
-    var maps = [60, 50, 40, 10, 5, 1];
-    var value = ["LX", "L", "XL", "X", "V", "I"];
-    var result = "";
-    var index = 0;
-    while(input > 0) {
-      if(input === (maps[index] - 1) ) {
-        input = 0;
-        result += "I" + value[index];
-        break;
-      }else if(input >= maps[index]) {
-        result += value[index];
-        input = input - maps[index];
-      }else if(input <= 3){
-        result += value[value.length - 1];
-        input = input - 1;
-      }else {
-        index++;
+    var maps = {
+      V:5,
+      IV:4,
+      I:1
+    };
+    var result = '';
+    var index;
+    for ( index in maps ) {
+      while ( input >= maps[index] ) {
+        result += index;
+        input -= maps[index];
       }
     }
-
     return result;
   };
+
+
   return service;
 }]);
