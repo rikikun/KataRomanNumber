@@ -6,6 +6,7 @@ roman.controller("romanController", ["convertService", function(convertService) 
   ctrl.input = "";
   ctrl.result = "";
   ctrl.error = "";
+  ctrl.inputToThai = "";
 
   ctrl.handleChange = function(event) {
     if(!isNaN(ctrl.input)) {

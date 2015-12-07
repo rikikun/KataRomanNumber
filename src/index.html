@@ -4,12 +4,17 @@
 		<script src="app.js"></script>
 	</head>
 	<body ng-controller="romanController as ctrl">
-		Number
-		<input ng-model="ctrl.input" ng-change="ctrl.handleChange()" maxlength="4"
-		ng-keypress="ctrl.handleKeypress($event)"/>
-		>>>>>
-		{{ctrl.result}}
-		<br></br>
-		{{ctrl.error}}
+		<div>
+			Number
+			<input ng-model="ctrl.input" ng-change="ctrl.handleChange()" maxlength="4"
+			ng-keypress="ctrl.handleKeypress($event)"/>
+			>>>>>
+			{{ctrl.result}}
+			<br></br>
+			{{ctrl.error}}
+		</div>
+		<div>
+			<input ng-model="ctrl.inputToThai" type="number"/>
+		</div>
 	</body>
 </html>
