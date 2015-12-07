@@ -36,36 +36,47 @@ roman.controller("romanController", ["convertService", function(convertService) 
 roman.factory("convertService", [function() {
   var service = this;
 
-  service.toThai = function(numberInput) {
-    var result = '';
-    if(numberInput === '0') {
+  service.toThai = function(numIn) {
+    
+    function con(numberInput, round) {
+      var result = '';
+      if(numberInput === '0') {
       result = 'ศูนย์';
-    }else if(numberInput === '1'){
-      result = 'หนึ่ง';
-    }else {
-      var num = {
-        '0':'','1':'หนึ่ง','2':'สอง','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10':'สิบ'
-      };
-      var num2 = {
-        '0':'','1':'','2':'ยี่','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10': 'สิบ'
-      };
-      var num3 = {
-        '0':'','1':'เอ็ด','2':'สอง','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10': 'สิบ'
-      }; 
-      var cost = ['ล้าน','แสน','หมื่น','พัน','ร้อย','สิบ',''];
-      var index = cost.length - numberInput.length;
-      var i = 0;
-      for(var x=0;x<numberInput.length;x++,index++) {
-        if(index === 5) {
-          result = result + num2[numberInput.charAt(x)] + cost[index] ;
-        }else if(index === 6){
-          result = result + num3[numberInput.charAt(x)] + cost[index] ;
-        }else {
-          result = result + num[numberInput.charAt(x)] + cost[index] ;
+      }else if(numberInput === '1'){
+        result = 'หนึ่ง';
+      }else {
+        var num = {
+          '0':'','1':'หนึ่ง','2':'สอง','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10':'สิบ'
+        };
+        var num2 = {
+          '0':'','1':'','2':'ยี่','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10': 'สิบ'
+        };
+        var num3 = {
+          '0':'','1':'เอ็ด','2':'สอง','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10': 'สิบ'
+        }; 
+        var cost = ['ล้าน','แสน','หมื่น','พัน','ร้อย','สิบ',''];
+        var index = cost.length - numberInput.length;
+        var i = 0;
+        for(var x=0;x<numberInput.length;x++,index++) {
+          if(numberInput.charAt(x) === '0'){
+            continue;
+          }
+          if(index === 5) {
+            result = result + num2[numberInput.charAt(x)] + cost[index] ;
+          }else if(index === 6){
+            result = result + num3[numberInput.charAt(x)] + cost[index] ;
+          }else {
+            result = result + num[numberInput.charAt(x)] + cost[index] ;
+          }
         }
       }
+      for(var j=0;j<round;j++){
+        result = result + 'ล้าน';
+      }
+      return result;
     }
-    return result;
+    var satang = numIn.split('.').length > 1 ? con(numIn.split('.')[1]) + 'สตางค์' : '';
+    return con(numIn.split('.')[0]) + 'บาท' + satang ;
   };
 
 
