@@ -5,7 +5,7 @@
 	</head>
 	<body ng-controller="romanController as ctrl">
 		<div>
-			Number
+			Number to roman
 			<input ng-model="ctrl.input" ng-change="ctrl.handleChange()" maxlength="4"
 			ng-keypress="ctrl.handleKeypress($event)"/>
 			>>>>>
@@ -14,7 +14,10 @@
 			{{ctrl.error}}
 		</div>
 		<div>
-			<input ng-model="ctrl.inputToThai" type="number"/>
+			Number to Thai
+			<input ng-model="ctrl.inputToThai" ng-change="ctrl.handleToThaiChange()" type="text"/>
+			>>>>>
+			{{ctrl.resultToThai}}
 		</div>
 	</body>
 </html>
