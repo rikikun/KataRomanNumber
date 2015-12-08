@@ -38,7 +38,7 @@ roman.factory("convertService", [function() {
 
   service.toThai = function(numIn) {
     
-    function con(numberInput, round) {
+    function con(numberInput) {
       var result = '';
       if(numberInput === '0') {
       result = 'ศูนย์';
@@ -54,29 +54,43 @@ roman.factory("convertService", [function() {
         var num3 = {
           '0':'','1':'เอ็ด','2':'สอง','3':'สาม','4':'สี่','5':'ห้า','6':'หก','7':'เจ็ด','8':'แปด','9':'เก้า','10': 'สิบ'
         }; 
-        var cost = ['ล้าน','แสน','หมื่น','พัน','ร้อย','สิบ',''];
+        var cost = ['แสน','หมื่น','พัน','ร้อย','สิบ',''];
         var index = cost.length - numberInput.length;
         var i = 0;
         for(var x=0;x<numberInput.length;x++,index++) {
           if(numberInput.charAt(x) === '0'){
             continue;
           }
-          if(index === 5) {
+          if(index === 4) {
             result = result + num2[numberInput.charAt(x)] + cost[index] ;
-          }else if(index === 6){
+          }else if(index === 5){
             result = result + num3[numberInput.charAt(x)] + cost[index] ;
           }else {
             result = result + num[numberInput.charAt(x)] + cost[index] ;
           }
         }
       }
-      for(var j=0;j<round;j++){
-        result = result + 'ล้าน';
-      }
       return result;
     }
     var satang = numIn.split('.').length > 1 ? con(numIn.split('.')[1]) + 'สตางค์' : '';
-    return con(numIn.split('.')[0]) + 'บาท' + satang ;
+    var other = numIn.split('.')[0];
+    var result = '';
+    var round = Math.ceil(other.length/6);
+    for(var r=0;r<round;r++) {
+      var  s;
+      if((other.length-(6*(r+1))) < 0) {
+        s = other.substr(0,other.length-(6*r));
+      }else {
+        s = other.substr(other.length-(6*(r+1)),other.length-(6*r));
+      }
+      if(r>0){
+        result =  con(s) + 'ล้าน' + result;
+      }else {
+        result =  con(s) + result;
+      }
+    }
+
+    return result + 'บาท' + satang ;
   };
 
 

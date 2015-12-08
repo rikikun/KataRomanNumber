@@ -55,4 +55,12 @@ describe('numberToThai', function() {
 	it('should convert 9,999,921 to เก้าล้านเก้าแสนเก้าหมื่นเก้าพันเก้าร้อยยี่สิบเอ็ด', function() {
 		expect('เก้าล้านเก้าแสนเก้าหมื่นเก้าพันเก้าร้อยยี่สิบเอ็ดบาท').toEqual(convertService.toThai('9999921'));
 	});
+
+	it('should convert 109,999,921 to หนึ่งร้อยเก้าล้านเก้าแสนเก้าหมื่นเก้าพันเก้าร้อยยี่สิบเอ็ด', function() {
+		expect('หนึ่งร้อยเก้าล้านเก้าแสนเก้าหมื่นเก้าพันเก้าร้อยยี่สิบเอ็ดบาท').toEqual(convertService.toThai('109999921'));
+	});
+
+	it('should convert 2,000,000,000,000 to สองล้านล้านบาท', function() {
+		expect('สองล้านล้านบาท').toEqual(convertService.toThai('2000000000000'));
+	});
 });
