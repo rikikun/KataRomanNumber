@@ -36,6 +36,41 @@ roman.controller("romanController", ["convertService", function(convertService) 
 roman.factory("convertService", [function() {
   var service = this;
 
+  service.poker = function(cards) {
+    var royalStraightFlush = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      values = values.sort(function(a,b) {
+        return a-b;
+      });
+      var typeCheck = inCards.reduce(function(a, b) {
+        return (a.t === b.t)?a:false;
+      });
+      return typeCheck && (values.toString() === ['10','11','12','13','14'].toString()) ? true : false;
+    };
+
+    var straightFlush = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      values = values.sort(function(a,b) {
+        return a-b;
+      });
+      values = values.reduce(function(previous, current) {
+        return previous === (current-1).toString() ? current: false;
+      });
+
+      var typeCheck = inCards.reduce(function(a, b) {
+        return (a.t === b.t)?a:false;
+      });
+      return typeCheck && values ? true : false;
+    };
+    var result = straightFlush(cards) ? 'Straight Flush' : '';
+    result = royalStraightFlush(cards) ? 'Royal Straight Flush' : result;
+    return result;
+  };
+
   service.toThai = function(numIn) {
     
     function con(numberInput) {
