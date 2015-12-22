@@ -69,4 +69,26 @@ describe("Poker test", function() {
     .toEqual("Straight Flush");
   });
 
+  it("should return Four of kind 1", function(){
+    expect(convertService.poker([
+      {type:'d',value:'9'},
+      {type:'h',value:'9'},
+      {type:'d',value:'10'},
+      {type:'c',value:'9'},
+      {type:'d',value:'9'}]))
+    .toEqual("Four of kind");
+  });
+
+  it("should return Four of kind 2", function(){
+    expect(convertService.poker([
+      {type:'d',value:'9'},
+      {type:'h',value:'10'},
+      {type:'d',value:'10'},
+      {type:'c',value:'10'},
+      {type:'d',value:'10'}]))
+    .toEqual("Four of kind");
+  });
+
+  
+
 });

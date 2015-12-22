@@ -66,7 +66,19 @@ roman.factory("convertService", [function() {
       });
       return typeCheck && values ? true : false;
     };
-    var result = straightFlush(cards) ? 'Straight Flush' : '';
+
+    var fourOfKind = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      values = values.filter(function(item, pos) {
+        return values.indexOf(item) == pos;
+      });
+      return values.length === 2 ? true : false;
+    };
+
+    var result = fourOfKind(cards) ? 'Four of kind' : '';
+    result = straightFlush(cards) ? 'Straight Flush' : result;
     result = royalStraightFlush(cards) ? 'Royal Straight Flush' : result;
     return result;
   };
