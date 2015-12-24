@@ -89,7 +89,7 @@ describe("Poker test", function() {
     .toEqual("Four of kind");
   });
 
-  it("should return Full House", function(){
+  it("should return Full House 1", function(){
     expect(convertService.poker([
       {type:'d',value:'9'},
       {type:'h',value:'9'},
@@ -99,7 +99,7 @@ describe("Poker test", function() {
     .toEqual("Full House");
   });
 
-  it("should return Full House", function(){
+  it("should return Full House 2", function(){
     expect(convertService.poker([
       {type:'d',value:'14'},
       {type:'h',value:'14'},
@@ -108,6 +108,29 @@ describe("Poker test", function() {
       {type:'d',value:'10'}]))
     .toEqual("Full House");
   });
+
+  it("should return Flush 1", function(){
+  expect(convertService.poker([
+      {type:'d',value:'11'},
+      {type:'d',value:'14'},
+      {type:'d',value:'14'},
+      {type:'d',value:'10'},
+      {type:'d',value:'10'}]))
+    .toEqual("Flush");
+  });
+
+  it("should return Flush 2", function(){
+  expect(convertService.poker([
+      {type:'h',value:'11'},
+      {type:'h',value:'14'},
+      {type:'h',value:'14'},
+      {type:'h',value:'10'},
+      {type:'h',value:'10'}]))
+    .toEqual("Flush");
+  });
+
+
+  
 
 
 

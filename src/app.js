@@ -74,7 +74,7 @@ roman.factory("convertService", [function() {
       values = values.filter(function(item, pos) {
         return values.indexOf(item) == pos;
       });
-      return values.length === 2 ? true : false;
+      return values.length === 2;
     };
 
     var fullHouse = function(inCards) {
@@ -82,17 +82,27 @@ roman.factory("convertService", [function() {
         return card.value;
       });
       var uniqueValues = values.filter(function(item, pos) {
-        return values.indexOf(item) == pos;
+        return values.indexOf(item) === pos;
       });
       switch(uniqueValues.length) {
         case 2:
-            var number = values.filter(function(item) {
-              return item === uniqueValues[0];
-            }).length;
-            return (number === 3 || number === 2) ? true : false;
+          var number = values.filter(function(item) {
+            return item === uniqueValues[0];
+          }).length;
+          return (number === 3 || number === 2);
         default:
           return false;
       }
+    }
+
+    var flush = function(inCards) {
+      var types = inCards.map(function(card) {
+        return card.type;
+      });
+      types = types.filter(function(item, pos) {
+        return types.indexOf(item) === pos;
+      });
+      return types.length === 1;
     }
 
     switch(true) {
@@ -104,6 +114,8 @@ roman.factory("convertService", [function() {
           return 'Full House';
         case fourOfKind(cards):
           return 'Four of kind';
+        case flush(cards):
+          return 'Flush';
         default:
           return 'High card';
       }
