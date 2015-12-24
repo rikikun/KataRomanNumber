@@ -129,6 +129,26 @@ describe("Poker test", function() {
     .toEqual("Flush");
   });
 
+  it("should return Straight 1", function(){
+  expect(convertService.poker([
+      {type:'d',value:'14'},
+      {type:'h',value:'13'},
+      {type:'h',value:'12'},
+      {type:'c',value:'11'},
+      {type:'h',value:'10'}]))
+    .toEqual("Straight");
+  });
+
+  it("should return Straight 2", function(){
+  expect(convertService.poker([
+      {type:'h',value:'6'},
+      {type:'h',value:'5'},
+      {type:'s',value:'4'},
+      {type:'h',value:'3'},
+      {type:'h',value:'2'}]))
+    .toEqual("Straight");
+  });
+
 
   
 

@@ -44,10 +44,7 @@ roman.factory("convertService", [function() {
       values = values.sort(function(a,b) {
         return a-b;
       });
-      var typeCheck = inCards.reduce(function(a, b) {
-        return (a.t === b.t)?a:false;
-      });
-      return typeCheck && (values.toString() === ['10','11','12','13','14'].toString()) ? true : false;
+      return flush(cards) && (values.toString() === ['10','11','12','13','14'].toString()) ? true : false;
     };
 
     var straightFlush = function(inCards) {
@@ -60,11 +57,7 @@ roman.factory("convertService", [function() {
       values = values.reduce(function(previous, current) {
         return previous === (current-1).toString() ? current: false;
       });
-
-      var typeCheck = inCards.reduce(function(a, b) {
-        return (a.t === b.t)?a:false;
-      });
-      return typeCheck && values ? true : false;
+      return flush(cards) && values ? true : false;
     };
 
     var fourOfKind = function(inCards) {
@@ -105,6 +98,19 @@ roman.factory("convertService", [function() {
       return types.length === 1;
     }
 
+    var straight = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      values = values.sort(function(a,b) {
+        return a-b;
+      });
+      values = values.reduce(function(previous, current) {
+        return previous === (current-1).toString() ? current: false;
+      });
+      return values ? true : false;
+    }
+
     switch(true) {
         case royalStraightFlush(cards):
           return 'Royal Straight Flush';
@@ -116,6 +122,8 @@ roman.factory("convertService", [function() {
           return 'Four of kind';
         case flush(cards):
           return 'Flush';
+        case straight(cards):
+          return 'Straight';
         default:
           return 'High card';
       }
