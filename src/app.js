@@ -77,10 +77,36 @@ roman.factory("convertService", [function() {
       return values.length === 2 ? true : false;
     };
 
-    var result = fourOfKind(cards) ? 'Four of kind' : '';
-    result = straightFlush(cards) ? 'Straight Flush' : result;
-    result = royalStraightFlush(cards) ? 'Royal Straight Flush' : result;
-    return result;
+    var fullHouse = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      var uniqueValues = values.filter(function(item, pos) {
+        return values.indexOf(item) == pos;
+      });
+      switch(uniqueValues.length) {
+        case 2:
+            var number = values.filter(function(item) {
+              return item === uniqueValues[0];
+            }).length;
+            return (number === 3 || number === 2) ? true : false;
+        default:
+          return false;
+      }
+    }
+
+    switch(true) {
+        case royalStraightFlush(cards):
+          return 'Royal Straight Flush';
+        case straightFlush(cards):
+          return 'Straight Flush';
+        case fullHouse(cards):
+          return 'Full House';
+        case fourOfKind(cards):
+          return 'Four of kind';
+        default:
+          return 'High card';
+      }
   };
 
   service.toThai = function(numIn) {

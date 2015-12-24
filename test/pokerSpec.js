@@ -89,6 +89,28 @@ describe("Poker test", function() {
     .toEqual("Four of kind");
   });
 
+  it("should return Full House", function(){
+    expect(convertService.poker([
+      {type:'d',value:'9'},
+      {type:'h',value:'9'},
+      {type:'d',value:'10'},
+      {type:'c',value:'10'},
+      {type:'d',value:'10'}]))
+    .toEqual("Full House");
+  });
+
+  it("should return Full House", function(){
+    expect(convertService.poker([
+      {type:'d',value:'14'},
+      {type:'h',value:'14'},
+      {type:'d',value:'14'},
+      {type:'c',value:'10'},
+      {type:'d',value:'10'}]))
+    .toEqual("Full House");
+  });
+
+
+
   
 
 });
