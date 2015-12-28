@@ -149,7 +149,86 @@ describe("Poker test", function() {
     .toEqual("Straight");
   });
 
+  it("should return Three of a kind 1", function(){
+  expect(convertService.poker([
+      {type:'h',value:'6'},
+      {type:'h',value:'6'},
+      {type:'s',value:'6'},
+      {type:'h',value:'3'},
+      {type:'h',value:'2'}]))
+    .toEqual("Three of a kind");
+  });
 
+  it("should return Three of a kind 2", function(){
+  expect(convertService.poker([
+      {type:'h',value:'14'},
+      {type:'h',value:'14'},
+      {type:'s',value:'4'},
+      {type:'h',value:'3'},
+      {type:'h',value:'14'}]))
+    .toEqual("Three of a kind");
+  });
+
+  it("should return Two pair 1", function(){
+  expect(convertService.poker([
+      {type:'h',value:'14'},
+      {type:'h',value:'14'},
+      {type:'s',value:'4'},
+      {type:'h',value:'3'},
+      {type:'h',value:'3'}]))
+    .toEqual("Two pair");
+  });
+
+  it("should return Two pair 2", function(){
+  expect(convertService.poker([
+      {type:'h',value:'2'},
+      {type:'d',value:'14'},
+      {type:'s',value:'4'},
+      {type:'s',value:'4'},
+      {type:'h',value:'2'}]))
+    .toEqual("Two pair");
+  });
+
+  it("should return One pair 1", function(){
+  expect(convertService.poker([
+      {type:'h',value:'2'},
+      {type:'d',value:'14'},
+      {type:'s',value:'13'},
+      {type:'s',value:'12'},
+      {type:'h',value:'2'}]))
+    .toEqual("One pair");
+  });
+
+  it("should return One pair 2", function(){
+  expect(convertService.poker([
+      {type:'h',value:'2'},
+      {type:'d',value:'14'},
+      {type:'s',value:'13'},
+      {type:'s',value:'12'},
+      {type:'h',value:'12'}]))
+    .toEqual("One pair");
+  });
+
+
+  it("should return High card 1", function(){
+  expect(convertService.poker([
+      {type:'h',value:'2'},
+      {type:'d',value:'4'},
+      {type:'s',value:'5'},
+      {type:'s',value:'6'},
+      {type:'h',value:'7'}]))
+    .toEqual("High card");
+  });
+
+  it("should return High card 1", function(){
+  expect(convertService.poker([
+      {type:'h',value:'2'},
+      {type:'d',value:'4'},
+      {type:'s',value:'12'},
+      {type:'s',value:'6'},
+      {type:'h',value:'14'}]))
+    .toEqual("High card");
+  });
   
 
 

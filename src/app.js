@@ -8,6 +8,8 @@ roman.controller("romanController", ["convertService", function(convertService) 
   ctrl.error = "";
   ctrl.inputToThai = "";
   ctrl.resultToThai = '';
+  ctrl.inputToPoker = '';
+  ctrl.resultToPoker = '';
 
   ctrl.handleChange = function(event) {
     if(!isNaN(ctrl.input)) {
@@ -21,6 +23,43 @@ roman.controller("romanController", ["convertService", function(convertService) 
   ctrl.handleToThaiChange = function(event) {
     ctrl.resultToThai = convertService.toThai(ctrl.inputToThai.trim());
   };
+
+  ctrl.handlePokerChange = function(event) {
+    var newObject = ctrl.convertToFormat(ctrl.inputToPoker);
+    if(newObject.length != 5) {
+      ctrl.resultToPoker = 'Input Wrong format should be h-5;d-6;c-J;s-A;d-K';
+    }else {
+      ctrl.resultToPoker = '';
+      ctrl.resultToPoker = convertService.poker(newObject);
+    }
+  };
+
+  ctrl.convertToFormat = function(input) {
+    return input.trim().split(';').map(function(inp) {
+      var value = '';
+      switch(inp.split('-')[1]){
+          case 'J' || 'j':
+            value = '11';
+            break;
+          case 'Q' || 'q':
+            value = '12';
+            break;
+          case 'K' || 'k':
+            value = '13';
+            break;
+          case 'A' || 'a':
+            value = '14';
+            break;
+          default:
+            value = inp.split('-')[1];
+            break;
+        };
+      return {
+        type: inp.split('-')[0],
+        value: value,
+      };
+    });
+  }
 
   ctrl.handleKeypress = function(event) {
     if(isNaN(String.fromCharCode(event.charCode))) {
@@ -47,25 +86,12 @@ roman.factory("convertService", [function() {
       return flush(cards) && (values.toString() === ['10','11','12','13','14'].toString()) ? true : false;
     };
 
-    var straightFlush = function(inCards) {
-      var values = inCards.map(function(card) {
-        return card.value;
-      });
-      values = values.sort(function(a,b) {
-        return a-b;
-      });
-      values = values.reduce(function(previous, current) {
-        return previous === (current-1).toString() ? current: false;
-      });
-      return flush(cards) && values ? true : false;
-    };
-
     var fourOfKind = function(inCards) {
       var values = inCards.map(function(card) {
         return card.value;
       });
-      values = values.filter(function(item, pos) {
-        return values.indexOf(item) == pos;
+      values = values.filter(function(item, index) {
+        return values.indexOf(item) == index;
       });
       return values.length === 2;
     };
@@ -74,8 +100,8 @@ roman.factory("convertService", [function() {
       var values = inCards.map(function(card) {
         return card.value;
       });
-      var uniqueValues = values.filter(function(item, pos) {
-        return values.indexOf(item) === pos;
+      var uniqueValues = values.filter(function(item, index) {
+        return values.indexOf(item) === index;
       });
       switch(uniqueValues.length) {
         case 2:
@@ -92,8 +118,8 @@ roman.factory("convertService", [function() {
       var types = inCards.map(function(card) {
         return card.type;
       });
-      types = types.filter(function(item, pos) {
-        return types.indexOf(item) === pos;
+      types = types.filter(function(item, index) {
+        return types.indexOf(item) === index;
       });
       return types.length === 1;
     }
@@ -111,10 +137,52 @@ roman.factory("convertService", [function() {
       return values ? true : false;
     }
 
+    var threeOfKind = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      });
+      var uniqueValues = values.filter(function(value, index) {
+        return values.indexOf(value) === index;
+      });
+      switch(uniqueValues.length) {
+        case 3:
+          var check1 = values.filter(function(item) {
+            return item === uniqueValues[0];
+          }).length;
+          var check2 = values.filter(function(item) {
+            return item === uniqueValues[1];
+          }).length;
+          var check3 = values.filter(function(item) {
+            return item === uniqueValues[2];
+          }).length;
+          return (check1 === 3 || check2 === 3 || check3 === 3);
+        default:
+          return false;
+      }
+    }
+
+    var twoPair = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      })
+      return values.filter(function(value, index) {
+        return values.indexOf(value) === index;
+      }).length === 3;
+    }
+
+    var onePair = function(inCards) {
+      var values = inCards.map(function(card) {
+        return card.value;
+      })
+      return values.filter(function(value, index) {
+        return values.indexOf(value) === index;
+      }).length === 4;
+    }
+
     switch(true) {
         case royalStraightFlush(cards):
           return 'Royal Straight Flush';
-        case straightFlush(cards):
+        case flush(cards) && straight(cards):
           return 'Straight Flush';
         case fullHouse(cards):
           return 'Full House';
@@ -124,6 +192,12 @@ roman.factory("convertService", [function() {
           return 'Flush';
         case straight(cards):
           return 'Straight';
+        case threeOfKind(cards):
+          return 'Three of a kind';
+        case twoPair(cards):
+          return 'Two pair';
+        case onePair(cards):
+          return 'One pair';
         default:
           return 'High card';
       }
